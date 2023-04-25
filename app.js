@@ -1,12 +1,15 @@
-var url = "http://colormind.io/api/";
-
-var data = {model : "default"}
+const url = "http://colormind.io/api/";
+const data = {model : "default"}
+const http = new XMLHttpRequest();
 
 
 let divs = document.querySelectorAll(".color")
-let colorNames = document.querySelectorAll('h1');
-//Creating XMLHttpRequest object
-var http = new XMLHttpRequest();
+let hexcodes = document.querySelectorAll('.hexcode')
+let options = document.querySelector('.option-list')
+
+
+
+function generatePalette () {
 
 
 http.onreadystatechange = function() {
@@ -14,9 +17,10 @@ http.onreadystatechange = function() {
 
 	if(http.readyState == 4 && http.status == 200) {
 
-		var palette = JSON.parse(http.responseText).result;
+      var palette = JSON.parse(http.responseText).result;
         
-        //console.log(palette)
+    
+         
         let toHex = (r,g,b) => {
             return [r,g,b].reduce( (acc,cur) => { 
                let hex = Number(cur).toString(16)
@@ -26,42 +30,44 @@ http.onreadystatechange = function() {
            },[]).join('')
            }
           
-      
-           
-        //let paletteOne = palette[0] //palette[i]
         let hexArray = [];
-        let hex;
-     palette.forEach( (color) => {
-        let hex = toHex(...color)
-        hexArray.push( `#${hex}`) 
         
+        palette.forEach( (color) => {
+        let hex = toHex(...color)
+        hexArray.push( `#${hex}`)    
      })
      console.log( hexArray )
   
       
-           
+          
      divs.forEach ( (div,i) => {
-        let h1 = document.createElement('h1');
-        h1.innerText = hexArray[i]
-         div.appendChild(h1)
         div.style.backgroundColor = hexArray[i]
+        
      })
     
-     
-    
-       
+     hexcodes.forEach( (code,i) => {
+        code.innerHTML = hexArray[i]
+     } )
+         
 	}
+
+}
+
+          //Method(get or post), the server location, true(ascy),false(scyn)
+          http.open("POST", url, true);
+          //send request to the server 
+          http.send(JSON.stringify(data));
 }
 
 
-//
-          //Method(get or post), the server location, true(ascy),false(scyn)
-http.open("POST", url, true);
-//send request to the server 
-http.send(JSON.stringify(data));
 
+window.addEventListener("keydown", function(e) {
+   if(e.code === 'Space'){   
+    generatePalette()
+   }
+   })
 
-
+generatePalette()
 
   
 
