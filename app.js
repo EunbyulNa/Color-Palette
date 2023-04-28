@@ -1,12 +1,17 @@
 const url = "http://colormind.io/api/";
-const data = {model : "default"}
-const http = new XMLHttpRequest();
+const data = {
+   model: "default",
+   input: ["N", "N", "N", "N", "N"]
+ };
+let http = new XMLHttpRequest();
 
 
-let divs = document.querySelectorAll(".color")
+let divs = document.querySelectorAll('.color')
 let hexcodes = document.querySelectorAll('.hexcode')
 let options = document.querySelector('.option-list')
 
+let btns = document.querySelectorAll('#btn')
+let popup = document.querySelector('.popup')
 
 
 function generatePalette () {
@@ -41,13 +46,27 @@ http.onreadystatechange = function() {
       
           
      divs.forEach ( (div,i) => {
-        div.style.backgroundColor = hexArray[i]
-        
+        div.style.backgroundColor = hexArray[i]    
      })
     
      hexcodes.forEach( (code,i) => {
         code.innerHTML = hexArray[i]
      } )
+
+     btns.forEach( (btn,i) => {
+      btn.addEventListener("click", function(){
+        
+         navigator.clipboard.writeText(hexcodes[i].innerHTML)
+        
+        popup.style.display = "block";
+        popup.style.bottom = "5rem"
+
+        setTimeout( function(){ popup.style.display = "none"}, 1000 )
+        
+      })
+     })
+
+  
          
 	}
 
@@ -60,7 +79,7 @@ http.onreadystatechange = function() {
 }
 
 
-
+ //
 window.addEventListener("keydown", function(e) {
    if(e.code === 'Space'){   
     generatePalette()

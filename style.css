@@ -46,9 +46,13 @@
 .content {
 
 height: 30vh;
-display: flex;
+
 justify-content: center;
 align-items: end;
+}
+
+#btn {
+   cursor: pointer;
 }
 
 .option-list {
@@ -59,6 +63,25 @@ align-items: end;
 
 .option-list li{
     list-style: none;
+}
+
+.popup {
+    transition: all 1s ease-in-out;
+    position: absolute;
+    bottom:2rem;
+ 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    background-color: white;
+    border: 1px solid black;
+    width: 300px;
+    padding: 1rem;
+    border-radius: 100px;
+    text-align: center;
+    display: none;
+   
 }
 
 
@@ -77,16 +100,25 @@ align-items: end;
     flex-direction: row-reverse;
     width: 100vw;
     height: 17vh;
-    border: 1px solid black;
+   
 }
 .content {
-    height: 0;
-    border: 1px solid red;
+
+    
+
+   margin-left: 2rem;
+    
+    height: auto;
+    
     justify-content: left;
     align-items:left;
+    width: 70%;
 
 }
+
+
 .option-list {
+    width: 30%;
     justify-content: right;
     align-items:right;
 }
