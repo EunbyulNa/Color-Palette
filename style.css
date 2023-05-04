@@ -51,19 +51,31 @@ justify-content: center;
 align-items: end;
 }
 
-#btn {
+#copy-btn {
    cursor: pointer;
 }
 
 .option-list {
    
-    border: 1px solid red;
+    
     opacity: 0;
 }
 
 .option-list li{
     list-style: none;
 }
+
+.fa {
+    border: 1px solid red;
+display: block;
+padding: 10px;
+margin: 2px;
+border-radius: 10px;
+background-color: white;
+
+}
+
+
 
 .popup {
     transition: all 1s ease-in-out;
@@ -91,8 +103,6 @@ align-items: end;
 }
 
 .header {
-    border: 1px solid yellow;
-   
     position:relative;
     
 }
@@ -103,8 +113,6 @@ align-items: end;
    
 }
 .content {
-
-    
 
    margin-left: 2rem;
     
@@ -121,6 +129,10 @@ align-items: end;
     width: 30%;
     justify-content: right;
     align-items:right;
+}
+
+li {
+    float: left;
 }
 }
 
