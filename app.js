@@ -11,7 +11,7 @@ let hexcodes = document.querySelectorAll('.hexcode')
 let options = document.querySelector('.option-list')
 
 let btns = document.querySelectorAll('#copy-btn')
-let popup = document.querySelector('.popup')
+let popup = document.querySelector('.copy-popup')
 
 
 function generatePalette () {

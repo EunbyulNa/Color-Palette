@@ -16,8 +16,18 @@
    
    
     <div class="header">
-        <h1>Create a palette</h1>
-        <p>Press the spacebar to generate color palettes!</p>
+        <div class="head-main">
+            <h1>Create a palette</h1>
+            <p>Press the spacebar to generate color palettes!</p>
+
+        </div>
+      
+           
+       
+        <div class="save-list">
+          <p> <i class="fa fa-heart-o" aria-hidden="true"></i>Save</p>
+        </div>
+       
     </div>
    
         <div class="color">
@@ -117,10 +127,35 @@
      
  </div>
 
- <div class="popup">
+ <div class="copy-popup">
     <span>
     <p>Copied! </p>
     </span>
+  </div>
+
+  <div class="save-popup">
+    <h1>Save color</h1>
+    <form action="" id="color-save-form">
+        <div class="modal-body">
+         <div class="input-group">
+           <label for="color-save-name">Name</label>
+           <input type="text" class="color-save-input" placeholder="My new Color" name="name">
+         </div>
+         <div class="input-group">
+            <label for="color-save-color">Color</label>
+            <div class="input-color">
+              <input type="text" class="color-input" placeholder="preveiw">
+              <div class="input-color-preview"></div>
+            </div>
+         </div>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-footer-btn">
+                <button type="submit">Save</button>
+            </div>
+        
+        </div>
+    </form>
   </div>
 
  <script src="app.js"></script>
