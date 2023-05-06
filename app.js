@@ -12,7 +12,9 @@ let options = document.querySelector('.option-list')
 
 let btns = document.querySelectorAll('#copy-btn')
 let popup = document.querySelector('.copy-popup')
-
+let colorPicker = document.querySelector(".color-picker")
+let  favColorInput = document.querySelectorAll("#favcolor")
+const submitBtns = document.querySelectorAll("#submit-btn")
 
 function generatePalette () {
 
@@ -41,17 +43,23 @@ http.onreadystatechange = function() {
         let hex = toHex(...color)
         hexArray.push( `#${hex}`)    
      })
-     console.log( hexArray )
+    
   
       
           
      divs.forEach ( (div,i) => {
         div.style.backgroundColor = hexArray[i]    
      })
+
     
      hexcodes.forEach( (code,i) => {
         code.innerHTML = hexArray[i]
      } )
+
+     favColorInput.forEach( (favColor, i) => {
+      favColor.value = hexArray[i]
+     
+     })
 
      btns.forEach( (btn,i) => {
       btn.addEventListener("click", function(){
@@ -66,7 +74,20 @@ http.onreadystatechange = function() {
       })
      })
 
-  
+     hexcodes.forEach( (hexcode) => {
+      hexcode.addEventListener("click", function(){
+        
+         hexcode.parentElement.nextElementSibling.style.display = "block"
+        
+      })
+     })
+
+    favColorInput[0].addEventListener('input', () =>{
+     divs[0].style.backgroundColor = favColorInput[0].value
+     hexcodes[0].innerHTML = favColorInput[0].value
+    });
+
+    
          
 	}
 
