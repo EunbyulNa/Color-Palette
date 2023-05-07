@@ -33,6 +33,7 @@ http.onreadystatechange = function() {
                let hex = Number(cur).toString(16)
                acc.push( hex.length < 2 ? (hex= '0' + hex) : hex)
                return acc
+               
            
            },[]).join('')
            }
@@ -40,8 +41,9 @@ http.onreadystatechange = function() {
         let hexArray = [];
         
         palette.forEach( (color) => {
-        let hex = toHex(...color)
+        let hex = toHex(...color).toUpperCase()
         hexArray.push( `#${hex}`)    
+       
      })
     
   
@@ -74,18 +76,45 @@ http.onreadystatechange = function() {
       })
      })
 
-     hexcodes.forEach( (hexcode) => {
-      hexcode.addEventListener("click", function(){
+
+
+
+     hexcodes.forEach((hexcode) => {
+      hexcode.addEventListener("click", function () {
+        const sibling = hexcode.parentElement.nextElementSibling;
         
-         hexcode.parentElement.nextElementSibling.style.display = "block"
-        
+        console.log(sibling)
+        if(sibling){
+         console.log("open")
+        }
+        if (sibling.style.opacity === "1") {
+          sibling.style.opacity = "0";
+         
+        } else {
+          sibling.style.opacity = "1";
+        }
+      });
+    });
+    
+
+   
+    favColorInput.forEach( (input) => {
+      input.addEventListener('input', function(){       
+         this.parentElement.parentElement.style.backgroundColor = this.value
+         this.parentElement.previousElementSibling.firstElementChild.innerHTML = this.value.toUpperCase()
+         
+      })
+    })
+
+     favColorInput.forEach( (input) => {
+      input.nextElementSibling.addEventListener("click", function(){
+         this.parentElement.style.opacity = "0"
       })
      })
+    
+   
 
-    favColorInput[0].addEventListener('input', () =>{
-     divs[0].style.backgroundColor = favColorInput[0].value
-     hexcodes[0].innerHTML = favColorInput[0].value
-    });
+   
 
     
          
