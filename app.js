@@ -76,23 +76,21 @@ http.onreadystatechange = function() {
       })
      })
 
-
-
+ 
 
      hexcodes.forEach((hexcode) => {
       hexcode.addEventListener("click", function () {
-        const sibling = hexcode.parentElement.nextElementSibling;
-        
-        console.log(sibling)
-        if(sibling){
-         console.log("open")
-        }
-        if (sibling.style.opacity === "1") {
-          sibling.style.opacity = "0";
+        const sibling = this.parentElement.nextElementSibling;
+        const windowSize = window.innerWidth;
+       
+         
+        if (windowSize > 768 && sibling.style.display=== "none") {
+         sibling.style.display = "block";
          
         } else {
-          sibling.style.opacity = "1";
-        }
+          sibling.style.display = "none";
+        
+         }
       });
     });
     
@@ -100,7 +98,7 @@ http.onreadystatechange = function() {
    
     favColorInput.forEach( (input) => {
       input.addEventListener('input', function(){       
-         this.parentElement.parentElement.style.backgroundColor = this.value
+        this.parentElement.parentElement.style.backgroundColor = this.value
          this.parentElement.previousElementSibling.firstElementChild.innerHTML = this.value.toUpperCase()
          
       })
@@ -108,7 +106,7 @@ http.onreadystatechange = function() {
 
      favColorInput.forEach( (input) => {
       input.nextElementSibling.addEventListener("click", function(){
-         this.parentElement.style.opacity = "0"
+      this.parentElement.style.display= "none"
       })
      })
     
@@ -140,4 +138,3 @@ generatePalette()
 
   
 
-  
