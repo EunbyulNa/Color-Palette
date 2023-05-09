@@ -11,7 +11,12 @@ let hexcodes = document.querySelectorAll('.hexcode')
 let options = document.querySelector('.option-list')
 
 let btns = document.querySelectorAll('#copy-btn')
+let likeBtns = document.querySelectorAll("#like-btn")
 let popup = document.querySelector('.copy-popup')
+let savePopup = document.querySelector('.save-popup')
+let modalClose = document.querySelector("#modal-close")
+let inputColorName = document.querySelector('.input-color-name')
+let inputColorPreview = document.querySelector('.input-color-preview')
 let colorPicker = document.querySelector(".color-picker")
 let  favColorInput = document.querySelectorAll("#favcolor")
 const submitBtns = document.querySelectorAll("#submit-btn")
@@ -63,6 +68,7 @@ http.onreadystatechange = function() {
      
      })
 
+    //copy 
      btns.forEach( (btn,i) => {
       btn.addEventListener("click", function(){
         
@@ -76,6 +82,18 @@ http.onreadystatechange = function() {
       })
      })
 
+   //like 
+     likeBtns.forEach( (btn,i) => {
+      btn.addEventListener("click", function(){
+        
+         savePopup.style.display="block"  
+         inputColorName.placeholder = hexcodes[i].innerHTML
+         inputColorPreview.style.backgroundColor = hexcodes[i].innerHTML
+         modalClose.addEventListener("click", function(){
+            savePopup.style.display = "none"
+         })
+      })
+     })
  
 
      hexcodes.forEach((hexcode) => {

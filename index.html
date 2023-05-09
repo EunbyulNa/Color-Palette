@@ -26,15 +26,20 @@
        
         <div class="save-list">
           <p> <i class="fa fa-heart-o" aria-hidden="true"></i>Save</p>
-        </div>
-       
+        </div>  
     </div>
    
+    <div class="sidebar">
+        <i id="sidebar-close" class="fa fa-times fa-lg" aria-hidden="true"></i>
+        <ul class="likedUl"></ul>
+       </div>
+
+
         <div class="color">
             <div class="option-list">
                 <ul>
                     <li>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i id="like-btn" class="fa fa-heart-o" aria-hidden="true"></i>
                     </li>
                     <li>
                         <i id="copy-btn" class="fa fa-clone" aria-hidden="true"></i>
@@ -63,7 +68,7 @@
             <div class="option-list">
                 <ul>
                     <li>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i  id="like-btn" class="fa fa-heart-o" aria-hidden="true"></i>
                     </li>
                     <li>
                         <i id="copy-btn" class="fa fa-clone" aria-hidden="true"></i>
@@ -88,7 +93,7 @@
             <div class="option-list">
                 <ul>
                     <li>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i id="like-btn"class="fa fa-heart-o" aria-hidden="true"></i>
                     </li>
                     <li>
                         <i id="copy-btn" class="fa fa-clone" aria-hidden="true"></i>
@@ -113,7 +118,7 @@
             <div class="option-list">
                 <ul>
                     <li>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i id="like-btn" class="fa fa-heart-o" aria-hidden="true"></i>
                     </li>
                     <li>
                         <i id="copy-btn" class="fa fa-clone" aria-hidden="true"></i>
@@ -138,7 +143,7 @@
             <div class="option-list">
                 <ul>
                     <li>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i id="like-btn" class="fa fa-heart-o" aria-hidden="true"></i>
                     </li>
                     <li>
                         <i id="copy-btn" class="fa fa-clone" aria-hidden="true"></i>
@@ -172,29 +177,34 @@
 
 
 
- <!-- <div class="save-popup">
-    <h1>Save color</h1>
+  <div class="save-popup">
+    <div class="modal-head">
+        <h1>Save color</h1>
+        <i id="modal-close" class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    
     <form action="" id="color-save-form">
         <div class="modal-body">
-         <div class="input-group">
+         <div class="input-group-name">
            <label for="color-save-name">Name</label>
            <input type="text" class="color-save-input" placeholder="My new Color" name="name">
          </div>
-         <div class="input-group">
+         <div class="input-group-color">
             <label for="color-save-color">Color</label>
-            <div class="input-color">
-              <input type="text" class="color-input" placeholder="preveiw">
-              <div class="input-color-preview"></div>
-            </div>
+         <div class="input-color-change">
+            <input type="text" class="input-color-name" placeholder="#123444" name="name">
+            <div class="input-color-preview"></div>
+         </div>   
          </div>
+        
         </div>
         <div class="modal-footer">
             <div class="modal-footer-btn">
-                <button type="submit">Save</button>
+                <button class="submit" type="submit">Save</button>
             </div>
         
         </div>
-    </form>-->
+    </form>
   </div>
 
  <script src="app.js"></script>
