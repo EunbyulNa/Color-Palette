@@ -30,7 +30,7 @@
     z-index: 1;
     top:0;
     right:0;
-    background-color: #fff;
+    background-color: #E7E6E6;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -39,10 +39,32 @@
 #sidebar-close{
   cursor: pointer;
   position: absolute;
-  right: 30px;
+  top:0;
+  right: 5px;
+  
 }
 
+.like-ul {
+    border: 1px solid red;
+    
+}
 
+.like-ul li {
+    display: flex;
+    justify-content:space-around;
+    margin-bottom: 10px;
+}
+
+.like-ul span{
+    display: inline-block;
+    width: 30%;
+}
+.like-color-box {
+   
+    width: 25px;
+    height: 25px;
+    background-color: black;
+}
 
 .color {
     
@@ -231,7 +253,7 @@ border-radius: 10px;
     padding: 10px;
 }
 
-.submit {
+.modal-submit {
     color:aliceblue;
     background-color: #0066ff;
     cursor: pointer;

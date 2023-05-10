@@ -14,19 +14,32 @@ let btns = document.querySelectorAll('#copy-btn')
 let likeBtns = document.querySelectorAll("#like-btn")
 let popup = document.querySelector('.copy-popup')
 let savePopup = document.querySelector('.save-popup')
+const saveBtn = document.querySelector('#save-btn')
+const sideBarClose = document.querySelector('#sidebar-close')
+const sideBar = document.querySelector('.sidebar')
+const likeUl = document.querySelector('.like-ul')
 let modalClose = document.querySelector("#modal-close")
+const modalBtn = document.querySelector(".modal-submit")
+
+let userColorName = document.querySelector(".color-save-input")
 let inputColorName = document.querySelector('.input-color-name')
 let inputColorPreview = document.querySelector('.input-color-preview')
 let colorPicker = document.querySelector(".color-picker")
 let  favColorInput = document.querySelectorAll("#favcolor")
 const submitBtns = document.querySelectorAll("#submit-btn")
 
+
+let itemsObject = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : {}
+
+
+console.log(itemsObject)
+
 function generatePalette () {
 
 
 http.onreadystatechange = function() {
 
-
+  
 	if(http.readyState == 4 && http.status == 200) {
 
       var palette = JSON.parse(http.responseText).result;
@@ -91,9 +104,21 @@ http.onreadystatechange = function() {
          inputColorPreview.style.backgroundColor = hexcodes[i].innerHTML
          modalClose.addEventListener("click", function(){
             savePopup.style.display = "none"
+            
+            
          })
+         
+        
+         
+
+       
+
+
+
       })
      })
+
+    
  
 
      hexcodes.forEach((hexcode) => {
@@ -131,6 +156,7 @@ http.onreadystatechange = function() {
    
 
    
+   
 
     
          
@@ -154,5 +180,54 @@ window.addEventListener("keydown", function(e) {
 
 generatePalette()
 
-  
 
+
+modalBtn.addEventListener("click", function(e){
+   e.preventDefault()
+   createList(inputColorName) //input pass 
+  
+ })
+
+
+
+function createList() {
+   if (!Array.isArray(itemsObject.name)) {
+     itemsObject.name = [];
+     itemsObject.color = [];
+   }
+   itemsObject.name.push(userColorName.value);
+   itemsObject.color.push(inputColorPreview.style.backgroundColor);
+ 
+   localStorage.setItem("items", JSON.stringify(itemsObject));
+   location.reload();
+ }
+ 
+
+//function displayList(){
+  // itemsArray.forEach( (item) => {
+    //  const li = document.createElement('li')
+      //li.textContent = item
+     // likeUl.appendChild(li)
+   //})
+//}
+
+
+  saveBtn.addEventListener("click", function(){
+   sideBar.style.width = '200px'
+  })
+
+  sideBarClose.addEventListener("click", function(){
+   sideBar.style.width = '0'
+  })
+
+
+  //displayList()
+
+
+
+
+
+
+
+ 
+   
