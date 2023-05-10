@@ -1,4 +1,4 @@
-const url = "http://colormind.io/api/";
+const url = "https://colormind.io/api/";
 const data = {
    model: "default",
    input: ["N", "N", "N", "N", "N"]
@@ -189,7 +189,6 @@ modalBtn.addEventListener("click", function(e){
  })
 
 
-
 function createList() {
    if (!Array.isArray(itemsObject.name)) {
      itemsObject.name = [];
@@ -202,14 +201,6 @@ function createList() {
    location.reload();
  }
  
-
-//function displayList(){
-  // itemsArray.forEach( (item) => {
-    //  const li = document.createElement('li')
-      //li.textContent = item
-     // likeUl.appendChild(li)
-   //})
-//}
 
 
   saveBtn.addEventListener("click", function(){
