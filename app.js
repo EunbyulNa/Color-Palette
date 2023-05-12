@@ -1,224 +1,129 @@
-const url = "http://colormind.io/api/";
-const data = {
-   model: "default",
-   input: ["N", "N", "N", "N", "N"]
- };
-let http = new XMLHttpRequest();
-
-
-let divs = document.querySelectorAll('.color')
-let hexcodes = document.querySelectorAll('.hexcode')
-let options = document.querySelector('.option-list')
-
-let btns = document.querySelectorAll('#copy-btn')
-let likeBtns = document.querySelectorAll("#like-btn")
-let popup = document.querySelector('.copy-popup')
-let savePopup = document.querySelector('.save-popup')
+let divs = document.querySelectorAll('.color');
+let hexCodes = document.querySelectorAll('.hexcode');
+const copyBtns = document.querySelectorAll('#copy-btn');
+const copyPopup = document.querySelector('.copy-popup');
+const colorPicker = document.querySelectorAll('.color-picker');
+let colorPickerInput = document.querySelectorAll('#favcolor')
+const colorPickerBtn = document.querySelectorAll('#submit-btn')
+const likeBtn = document.querySelectorAll('#like-btn')
+const savePopup = document.querySelector('.save-popup')
+const inputColorName = document.querySelector('.input-color-name')
+const inputColorPreview = document.querySelector('.input-color-preview')
+const modalClose = document.querySelector("#modal-close")
 const saveBtn = document.querySelector('#save-btn')
-const sideBarClose = document.querySelector('#sidebar-close')
 const sideBar = document.querySelector('.sidebar')
-const likeUl = document.querySelector('.like-ul')
-let modalClose = document.querySelector("#modal-close")
-const modalBtn = document.querySelector(".modal-submit")
-
-let userColorName = document.querySelector(".color-save-input")
-let inputColorName = document.querySelector('.input-color-name')
-let inputColorPreview = document.querySelector('.input-color-preview')
-let colorPicker = document.querySelector(".color-picker")
-let  favColorInput = document.querySelectorAll("#favcolor")
-const submitBtns = document.querySelectorAll("#submit-btn")
+const sideBarClose = document.querySelector('#sidebar-close')
 
 
-let itemsObject = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : {}
-
-
-console.log(itemsObject)
-
-function generatePalette () {
-
-
-http.onreadystatechange = function() {
-
-  
-	if(http.readyState == 4 && http.status == 200) {
-
-      var palette = JSON.parse(http.responseText).result;
-        
-    
-         
-        let toHex = (r,g,b) => {
-            return [r,g,b].reduce( (acc,cur) => { 
-               let hex = Number(cur).toString(16)
-               acc.push( hex.length < 2 ? (hex= '0' + hex) : hex)
-               return acc
-               
-           
-           },[]).join('')
-           }
-          
-        let hexArray = [];
-        
-        palette.forEach( (color) => {
-        let hex = toHex(...color).toUpperCase()
-        hexArray.push( `#${hex}`)    
-       
-     })
-    
-  
-      
-          
-     divs.forEach ( (div,i) => {
-        div.style.backgroundColor = hexArray[i]    
-     })
-
-    
-     hexcodes.forEach( (code,i) => {
-        code.innerHTML = hexArray[i]
-     } )
-
-     favColorInput.forEach( (favColor, i) => {
-      favColor.value = hexArray[i]
-     
-     })
-
-    //copy 
-     btns.forEach( (btn,i) => {
-      btn.addEventListener("click", function(){
-        
-         navigator.clipboard.writeText(hexcodes[i].innerHTML)
-        
-        popup.style.display = "block";
-        popup.style.bottom = "5rem"
-
-        setTimeout( function(){ popup.style.display = "none"}, 1000 )
-        
-      })
-     })
-
-   //like 
-     likeBtns.forEach( (btn,i) => {
-      btn.addEventListener("click", function(){
-        
-         savePopup.style.display="block"  
-         inputColorName.placeholder = hexcodes[i].innerHTML
-         inputColorPreview.style.backgroundColor = hexcodes[i].innerHTML
-         modalClose.addEventListener("click", function(){
-            savePopup.style.display = "none"
-            
-            
-         })
-         
-        
-         
-
-       
-
-
-
-      })
-     })
-
-    
+async function fetchAPI(){
+  let baseURL = `https://x-colors.yurace.pro/api/random?number=5`;
+  let response = await fetch(baseURL);
+  let data = await response.json();
+  console.log(data)
+  generatedHTML(data);
+  copyColor()
+  showColorPicker()
+  favColorInput()
+  favColorSave()
+  saveDisplay()
  
+}
 
-     hexcodes.forEach((hexcode) => {
-      hexcode.addEventListener("click", function () {
-        const sibling = this.parentElement.nextElementSibling;
-        const windowSize = window.innerWidth;
-       
-         
-        if (windowSize > 768 && sibling.style.display=== "none") {
-         sibling.style.display = "block";
-         
-        } else {
-          sibling.style.display = "none";
+fetchAPI()
+
+
+function generatedHTML(data){
+  
+  const colors = data.map((color) => color.hex)
+  console.log(colors)
+
+  //Generate div background color
+  divs.forEach( (div,i) => {
+    div.style.backgroundColor = colors[i]
+  })
+  
+  //Generate h1 
+  hexCodes.forEach( (hexcode, i) => {
+    hexcode.innerHTML= colors[i]
+  })
+
+  //Generate color input 
+  colorPickerInput.forEach( (input,i) => {
+    input.value = colors[i]
+  })
+ 
+}
+
+
+function copyColor(){
+  copyBtns.forEach( (btn,i) => {
+    btn.addEventListener("click", function(){
+      navigator.clipboard.writeText(hexCodes[i].innerHTML)
         
-         }
-      });
-    });
-    
+      copyPopup.style.display = "block";
+      copyPopup.style.bottom = "5rem"
 
-   
-    favColorInput.forEach( (input) => {
-      input.addEventListener('input', function(){       
-        this.parentElement.parentElement.style.backgroundColor = this.value
-         this.parentElement.previousElementSibling.firstElementChild.innerHTML = this.value.toUpperCase()
-         
+      setTimeout( function(){ copyPopup.style.display = "none"}, 1000 )
+    })
+  }) 
+}
+
+
+function showColorPicker(){
+  hexCodes.forEach( (hexCode,i) => {
+    hexCode.addEventListener("click", function(){
+      const windowSize = window.innerWidth;
+
+      if(windowSize > 768 && colorPicker[i].style.display === 'none'){
+        colorPicker[i].style.display = 'block'  
+      }else{
+        colorPicker[i].style.display = 'none'  
+      }
+     
+  })
+})
+  
+}
+
+
+function favColorInput(){
+  colorPickerInput.forEach( (input,i) => {
+    
+    input.addEventListener('input', function(){
+      divs[i].style.backgroundColor = this.value
+      hexCodes[i].innerHTML = this.value.toUpperCase()
+    })
+  })
+}
+
+function favColorSave(){
+  colorPickerBtn.forEach( (btn,i) => {
+    btn.addEventListener("click", function(){
+      colorPicker[i].style.display = 'none'
+    })
+  })
+}
+
+
+function saveDisplay(){
+  likeBtn.forEach((btn,i)=> {
+    btn.addEventListener("click", function(){
+      savePopup.style.display = 'block' 
+      inputColorName.placeholder = hexCodes[i].innerHTML
+      inputColorPreview.style.backgroundColor = hexCodes[i].innerHTML
+      modalClose.addEventListener("click", function(){
+        savePopup.style.display = 'none'
       })
     })
-
-     favColorInput.forEach( (input) => {
-      input.nextElementSibling.addEventListener("click", function(){
-      this.parentElement.style.display= "none"
-      })
-     })
-    
-   
-
-   
-   
-
-    
-         
-	}
-
+  })
 }
 
-          //Method(get or post), the server location, true(ascy),false(scyn)
-          http.open("POST", url, true);
-          //send request to the server 
-          http.send(JSON.stringify(data));
-}
+saveBtn.addEventListener("click", function(){
+  sideBar.style.width = '200px'
+ })
 
-
- //
-window.addEventListener("keydown", function(e) {
-   if(e.code === 'Space'){   
-    generatePalette()
-   }
-   })
-
-generatePalette()
-
-
-
-modalBtn.addEventListener("click", function(e){
-   e.preventDefault()
-   createList(inputColorName) //input pass 
-  
+ sideBarClose.addEventListener("click", function(){
+  sideBar.style.width = '0'
  })
 
 
-function createList() {
-   if (!Array.isArray(itemsObject.name)) {
-     itemsObject.name = [];
-     itemsObject.color = [];
-   }
-   itemsObject.name.push(userColorName.value);
-   itemsObject.color.push(inputColorPreview.style.backgroundColor);
- 
-   localStorage.setItem("items", JSON.stringify(itemsObject));
-   location.reload();
- }
- 
-
-
-  saveBtn.addEventListener("click", function(){
-   sideBar.style.width = '200px'
-  })
-
-  sideBarClose.addEventListener("click", function(){
-   sideBar.style.width = '0'
-  })
-
-
-  //displayList()
-
-
-
-
-
-
-
- 
-   
